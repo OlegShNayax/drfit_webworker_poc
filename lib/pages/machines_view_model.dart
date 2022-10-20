@@ -20,7 +20,6 @@ class MachinesViewModel {
 
     final json = jsonDecode(await rootBundle.loadString('jsons/basic_old_response.json'));
     final machines = (json as List<dynamic>).map((e) => Machine.fromJson(e)).toList();
-
     print("finish machines serialization json(length: ${machines.length}) in milliseconds ${stopwatch.elapsed.inMilliseconds}");
 
     stopwatch.reset();
