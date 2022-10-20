@@ -1,4 +1,4 @@
-import 'package:drift_webworker_poc/pages/machines_bloc.dart';
+import 'package:drift_webworker_poc/pages/machines_view_model.dart';
 import 'package:flutter/material.dart';
 
 class MachinesPage extends StatefulWidget {
@@ -9,7 +9,7 @@ class MachinesPage extends StatefulWidget {
 }
 
 class _MachinesPageState extends State<MachinesPage> {
-  final _bloc = MachinesBloc();
+  final _bloc = MachinesViewModel();
 
   @override
   void initState() {

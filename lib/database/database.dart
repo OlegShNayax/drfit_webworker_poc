@@ -20,5 +20,4 @@ class AppDatabase extends _$AppDatabase {
           mode: InsertMode.insertOrReplace);
     });
   }
-
 }

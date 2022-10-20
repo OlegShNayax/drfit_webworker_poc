@@ -8,16 +8,9 @@ import 'package:flutter/foundation.dart';
 
 class PlatformInterface {
   static QueryExecutor createDatabaseConnection(String databaseName) {
-    // return LazyDatabase(() async {
-    //    print("create web with worker");
-    //   return _connectToWorker(databaseName).executor;
-    // });
-
     return LazyDatabase(() async {
-      print("create regular index db with no worker");
-      return WebDatabase.withStorage(await DriftWebStorage.indexedDbIfSupported(databaseName));
+      return _connectToWorker(databaseName).executor;
     });
-
   }
 
   static DatabaseConnection _connectToWorker(String databaseName) {
