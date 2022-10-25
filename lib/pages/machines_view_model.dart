@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 class MachinesViewModel {
 
   start() async{
-    await Future.delayed(const Duration(seconds: 5),() => driftDbPerformanceTest());
+    await Future.delayed(const Duration(seconds: 5),() => simonTest());
   }
 
   driftDbPerformanceTest() async {
@@ -25,5 +25,32 @@ class MachinesViewModel {
     stopwatch.reset();
     await database.insertMachines(machines);
     print("insert machines using drift(length: ${machines.length}) in milliseconds ${stopwatch.elapsed.inMilliseconds}");
+  }
+
+
+  simonTest() async{
+    final db = AppDatabase(Platform.createDatabaseConnection('sample'));
+    await Future.delayed(const Duration(seconds: 3));
+
+    await db.doWhenOpened((_) {
+      // Make sure the database is opened, we don't want to measure that in the
+      // benchmark.
+    });
+
+    final json = await rootBundle.loadString('assets/jsons/basic_old_response.json');
+    final parsedRows = (jsonDecode(json) as List)
+        .cast<Map<String, Object?>>()
+        .map(Machine.fromJson)
+        .toList();
+
+    print('starting insert');
+    final stopwatch = Stopwatch()..start();
+    await db.batch((b) async {
+      for (final row in parsedRows) {
+        b.insert(db.machineTable, row);
+      }
+    });
+
+    print(stopwatch.elapsed.inSeconds);
   }
 }

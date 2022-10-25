@@ -14,7 +14,7 @@ class _MachinesPageState extends State<MachinesPage> {
   @override
   void initState() {
     super.initState();
-    _bloc.driftDbPerformanceTest();
+    _bloc.start();
   }
 
   @override
