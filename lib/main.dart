@@ -1,7 +1,11 @@
+import 'package:drift_webworker_poc/locator/injector.dart';
 import 'package:drift_webworker_poc/pages/machines_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  injectDatabase();
+  injectWebWorker();
   runApp(const MyApp());
 }
 

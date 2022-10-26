@@ -1,19 +1,20 @@
 import 'dart:convert';
 
 import 'package:drift_webworker_poc/database/database.dart';
+import 'package:drift_webworker_poc/locator/injector.dart';
 import 'package:drift_webworker_poc/machines/machine.dart';
-import 'package:drift_webworker_poc/platform/platform.dart';
+import 'package:drift_webworker_poc/platform/worker_parent.dart';
 import 'package:flutter/services.dart';
 
 class MachinesViewModel {
 
   start() async{
-    await Future.delayed(const Duration(seconds: 5),() => simonTest());
+    await Future.delayed(const Duration(seconds: 3),() => workerTest());
   }
 
   driftDbPerformanceTest() async {
     print("Start drift db performance test");
-    final database = AppDatabase(Platform.createDatabaseConnection('sample'));
+    final database = sl<AppDatabase>();
 
     await Future.delayed(const Duration(seconds: 3));
     final stopwatch = Stopwatch()..start();
@@ -29,7 +30,7 @@ class MachinesViewModel {
 
 
   simonTest() async{
-    final db = AppDatabase(Platform.createDatabaseConnection('sample'));
+    final db = sl<AppDatabase>();
     await Future.delayed(const Duration(seconds: 3));
 
     await db.doWhenOpened((_) {
@@ -53,4 +54,21 @@ class MachinesViewModel {
 
     print(stopwatch.elapsed.inSeconds);
   }
+
+  workerTest() async{
+    print("workerTest()");
+    final worker = sl<DriftWebWorker>();
+    worker.init().listen((event) {
+      print("listen(event)");
+
+    }).onDone(() {
+      print("onDone");
+    });
+
+    await Future.delayed(const Duration(seconds: 3));
+    final machinesRaw = await rootBundle.loadString('assets/jsons/basic_old_response.json');
+    worker.insertMachines(machinesRaw: machinesRaw);
+
+  }
+
 }
