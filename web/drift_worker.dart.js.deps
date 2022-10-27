@@ -2,9 +2,11 @@ file:///Users/olegs/Documents/FlutterProjects/drift_webworker_poc/.dart_tool/pac
 file:///Users/olegs/Documents/FlutterProjects/drift_webworker_poc/lib/database/database.dart
 file:///Users/olegs/Documents/FlutterProjects/drift_webworker_poc/lib/database/database.g.dart
 file:///Users/olegs/Documents/FlutterProjects/drift_webworker_poc/lib/drift_worker.js.dart
+file:///Users/olegs/Documents/FlutterProjects/drift_webworker_poc/lib/locator/injector.dart
 file:///Users/olegs/Documents/FlutterProjects/drift_webworker_poc/lib/machines/machine.dart
 file:///Users/olegs/Documents/FlutterProjects/drift_webworker_poc/lib/machines/machine.g.dart
 file:///Users/olegs/Documents/FlutterProjects/drift_webworker_poc/lib/machines/machine_table.dart
+file:///Users/olegs/Documents/FlutterProjects/drift_webworker_poc/lib/worker_parent.dart
 file:///Users/olegs/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.9.0/lib/async.dart
 file:///Users/olegs/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.9.0/lib/src/async_cache.dart
 file:///Users/olegs/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.9.0/lib/src/async_memoizer.dart
@@ -162,6 +164,8 @@ file:///Users/olegs/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/drift-2
 file:///Users/olegs/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/drift-2.2.0/lib/src/web/storage.dart
 file:///Users/olegs/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/drift-2.2.0/lib/src/web/web_db.dart
 file:///Users/olegs/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/drift-2.2.0/lib/web.dart
+file:///Users/olegs/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/get_it-7.2.0/lib/get_it.dart
+file:///Users/olegs/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/get_it-7.2.0/lib/get_it_impl.dart
 file:///Users/olegs/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/js-0.6.4/lib/js.dart
 file:///Users/olegs/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/js-0.6.4/lib/js_util.dart
 file:///Users/olegs/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/json_annotation-4.7.0/lib/json_annotation.dart

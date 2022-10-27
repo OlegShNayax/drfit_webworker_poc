@@ -17,8 +17,6 @@ import 'locator/injector.dart';
 @pjs.JS('self')
 external dynamic get globalScopeSelf;
 
-late AppDatabase _appDatabase;
-
 Stream<T> callbackToStream<J, T>(String name, T Function(J jsValue) unwrapValue) {
   var controller = StreamController<T>.broadcast(sync: true);
   js_util.setProperty(js.context['self'], name, js.allowInterop((J event) {
@@ -34,8 +32,19 @@ void jsSendMessage(dynamic object, dynamic m) {
 Future<void> insertMachines(json) async{
   try {
     print("webworker: insertMachines()");
+    // final database = sl<AppDatabase>();
+    final database = AppDatabase(WebDatabase.withStorage(DriftWebStorage.indexedDb('worker',
+        migrateFromLocalStorage: false, inWebWorker: true)));
+
+    // final database = AppDatabase(WebDatabase.withStorage(await DriftWebStorage.indexedDbIfSupported('sample', inWebWorker: true)));
+    // print("all json is $json");
+
+    // print("json is ${json[0]}");
     final machines = (json as List<dynamic>).map((e) => Machine.fromJson(e)).toList();
-    await _appDatabase.insertMachines(machines);
+    // final machines = Machine.fromJson(json[0]);
+    // print("machine is ${machines.id}");
+    // machines.forEach((element) => print("id: ${element.id}"));
+    await database.insertMachines(machines);
   } catch (e) {
     print("exception is ${e.toString()}");
   }
@@ -45,16 +54,13 @@ main() {
   final self = WorkerGlobalScope.instance;
   self.importScripts('sql-wasm.js');
 
-  _appDatabase =  AppDatabase(WebDatabase.withStorage(
-      DriftWebStorage.indexedDb('worker',
-      migrateFromLocalStorage: false, inWebWorker: true)));
-
   callbackToStream('onmessage', (html.MessageEvent e) {
     print("webworker: onmessage");
     return js_util.getProperty(e, 'data');
   }).listen((messageString) async {
     print("messageString is $messageString");
     final message = jsonDecode(messageString);
+    // final result = jsonEncode(message);
     await insertMachines(message);
     return jsSendMessage(js.context, "done");
   });

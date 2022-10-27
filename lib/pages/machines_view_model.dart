@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:drift_webworker_poc/database/database.dart';
 import 'package:drift_webworker_poc/locator/injector.dart';
 import 'package:drift_webworker_poc/machines/machine.dart';
-import 'package:drift_webworker_poc/platform/worker_parent.dart';
+import 'package:drift_webworker_poc/worker_parent.dart';
 import 'package:flutter/services.dart';
 
 class MachinesViewModel {
@@ -55,18 +55,22 @@ class MachinesViewModel {
     print(stopwatch.elapsed.inSeconds);
   }
 
+
   workerTest() async{
     print("workerTest()");
+    final stopwatch = Stopwatch();
     final worker = sl<DriftWebWorker>();
-    worker.init().listen((event) {
-      print("listen(event)");
 
-    }).onDone(() {
-      print("onDone");
-    });
+    worker
+        .init()
+        .listen((event) {
+          print("finish inser");
+          print("${stopwatch.elapsed.inSeconds}s");
+        });
 
     await Future.delayed(const Duration(seconds: 3));
     final machinesRaw = await rootBundle.loadString('assets/jsons/basic_old_response.json');
+    stopwatch.start();
     worker.insertMachines(machinesRaw: machinesRaw);
 
   }
