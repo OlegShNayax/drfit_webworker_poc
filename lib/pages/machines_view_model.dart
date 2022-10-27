@@ -44,10 +44,16 @@ class MachinesViewModel {
         .toList();
 
     print('starting insert');
+    final iterationTimer = Stopwatch()..start();
     final stopwatch = Stopwatch()..start();
     await db.batch((b) async {
       for (final row in parsedRows) {
-        b.insert(db.machineTable, row);
+        if (iterationTimer.elapsedMilliseconds > 8) {
+          await Future<void>.delayed(Duration.zero);
+          iterationTimer.reset();
+        } else {
+          b.insert(db.machineTable, row);
+        }
       }
     });
 

@@ -9,6 +9,10 @@ import 'package:flutter/foundation.dart';
 class PlatformInterface {
   static QueryExecutor createDatabaseConnection(String databaseName) {
     return LazyDatabase(() async {
+      return WebDatabase.withStorage(await DriftWebStorage.indexedDbIfSupported(databaseName));
+    });
+
+    return LazyDatabase(() async {
       return _connectToWorker(databaseName).executor;
     });
   }
